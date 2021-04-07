@@ -2,11 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.OperationSystem;
+package frc.OperationManager;
 
-/** Add your docs here. */
-public class OpManager { // the main manager
-    public void start_operation(Operation operation) {
-    }
+
+public enum ReportType{
+    MESSAGE, WARNING, ERROR
 }
-

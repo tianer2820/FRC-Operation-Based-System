@@ -2,9 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.OperationSystem;
+package frc.OperationManager;
 
 
-public enum ReportType{
-    MESSAGE, WARNING, ERROR
+public enum OperationState {
+    WAITING, CANCELED, RUNNING, FINISHED
 }

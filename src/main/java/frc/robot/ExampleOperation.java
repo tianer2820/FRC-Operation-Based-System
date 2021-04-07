@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import frc.OperationSystem.*;
+import frc.OperationManager.*;
 
 public class ExampleOperation extends Operation {
 
@@ -15,7 +15,7 @@ public class ExampleOperation extends Operation {
     public int priority = 1;
     // a list of operations to be ignored. They will be overwriten regardless of the
     // priority
-    public String priority_ignores[] = { "id_name_of_operations_to_overwrite" };
+    public String priority_ignores[] = {"TheClassNameToIgnore"};
 
     // properties for the operation. These can be set when the operation is called.
     public int prop1;
@@ -35,7 +35,7 @@ public class ExampleOperation extends Operation {
         // start new operations
         ExampleOperation new_op = new ExampleOperation();
         new_op.prop1 = 10; // customize properties
-        this.start_operation(new_op); // make a child operation. the priority will be max(this, other).
+        this.startOperation(new_op); // make a child operation. the priority will be max(this, other).
         // will return when the operation is done.
 
         context.manager.start_operation(new ExampleOperation()); // start a root operation. This will be execute once, but
