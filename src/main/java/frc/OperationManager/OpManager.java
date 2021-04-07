@@ -4,8 +4,28 @@
 
 package frc.OperationManager;
 
+
 /** Add your docs here. */
-public class OpManager { // the main manager
+public class OpManager {
+    /**
+     * Initiallize the manager
+     */
+    public void init() {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    /**
+     * Update the manager, running all operations. You should call this periodically
+     */
+    public void update() {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    /**
+     * Start a new operation in parallel
+     * 
+     * @param operation instance of the operation to start
+     */
     public void startOperation(Operation operation) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
