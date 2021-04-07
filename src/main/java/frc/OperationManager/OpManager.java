@@ -6,7 +6,7 @@ package frc.OperationManager;
 
 /** Add your docs here. */
 public class OpManager { // the main manager
-    public void start_operation(Operation operation) {
+    public void startOperation(Operation operation) {
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 }
-

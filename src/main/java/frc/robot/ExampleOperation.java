@@ -38,7 +38,7 @@ public class ExampleOperation extends Operation {
         this.startOperation(new_op); // make a child operation. the priority will be max(this, other).
         // will return when the operation is done.
 
-        context.manager.start_operation(new ExampleOperation()); // start a root operation. This will be execute once, but
+        context.manager.startOperation(new ExampleOperation()); // start a root operation. This will be execute once, but
         // will not wait to finish
 
         return this.execute(context);
