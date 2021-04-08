@@ -3,6 +3,9 @@ A customly made command system, aiming to be more flexable and easier to use tha
 
 **Still in very early development stage. You should not use this.**
 
+**the goal:**
+
+This system is going to be lightweight and flexable. Its main function is to provide a parallel task system and a priority management system. The api should be simple and intuitive. The program should be organized, but not overly complicated. We don't want to spend more time on formatting than writing real functionallities.
 
 # Usage
 This system mainly provides three new objects/classes:
@@ -42,16 +45,20 @@ finally, the operation can be interrupted. In this case, the onInterrup method w
 All operations are handled by the OpManager class. It will hold a list of all operation instances and call the invoke, execute, etc methods automatically. You should create one instance of it and call the update method of OpManager in each interation.
 
 ### starting operations
-One way to start an operation is to make an instance of the wanted operation class and send it to the OpManager. 
-
-However, OpManager can also instanciate and start operations automatically upon user input, like "hot keys" from the xbox handle. To do this, you need to bind the operation class to some hotkey.
+To start an operation, make an instance of the wanted operation class and send it to the OpManager. 
+The OpManager will automatically call the invoke and execute methods of the operation.
+You can change the attribute of OpManager before sending it.
 
 ### terminating operations
-One way is to use the return value of the execute method of operation. However, if you want to interrupt an operation, you can call the interrupt method of the operation instance. This will trigger the cleanup process, and after that, the operation will remove it self form the list of Opmanager.
+One way is to use the return value of the execute method of operation. 
+However, if you want to interrupt an operation, you can call the interrupt method of the operation instance. This will trigger the cleanup process, and after that, the operation will remove it self form the list of Opmanager.
 
 ## the subsystem class
 This class is mainly for organizing the code and prociding a authority system. the system will not prevent you from doing anything if you insist, but following the system will keep your code safer.
 
 Each subsystem should have only one instance and should warp the motors belong to them.
 
-Subsystems needs to be accessable from operation objects, so they should be made static variables of some class. Many people think this is not a good practice, but this has to be done because 1. java does not provide a clean way to dynamically do the same thing. Or user will have to deal with type casting, which is not worthy. 2. passing instances of subsystems as parameters will make the parameter list super long and make code unreadable. 
+Subsystems needs to be accessable from operation objects, so they should be made static variables of some class.
+Many people think this is not a good practice, but this has to be done because:
+1. java does not provide a clean way to dynamically do the same thing. Or user will have to deal with type casting, which is not worthy.
+2. passing instances of subsystems as parameters will make the parameter list super long and make code unreadable. 
