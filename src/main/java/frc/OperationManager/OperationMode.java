@@ -5,7 +5,6 @@
 package frc.OperationManager;
 
 /** Add your docs here. */
-public class Context { // a class that provide running context
-    public OpManager op_manager;
-    public OperationMode mode;
+public enum OperationMode{
+    NONE, DISABLED, AUTONOMOUS, TELEOP, TEST
 }

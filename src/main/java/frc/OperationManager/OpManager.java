@@ -4,14 +4,22 @@
 
 package frc.OperationManager;
 
+import java.util.ArrayList;
 
-/** Add your docs here. */
+/**The operation Manager */
 public class OpManager {
+    ArrayList<Operation> operation_list = new ArrayList<Operation>();
+    OperationMode operation_mode = OperationMode.NONE;
+
     /**
      * Initiallize the manager
      */
     public void init() {
         throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    public void setMode(OperationMode mode){
+        operation_mode = mode;
     }
 
     /**
@@ -27,6 +35,13 @@ public class OpManager {
      * @param operation instance of the operation to start
      */
     public void startOperation(Operation operation) {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    /**
+     * interrupt all operations
+     */
+    public void interruptAll(){
         throw new UnsupportedOperationException("Not implemented yet");
     }
 }

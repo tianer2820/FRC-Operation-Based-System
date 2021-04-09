@@ -23,7 +23,6 @@ public class ExampleOperation extends Operation {
     public String prop3;
 
     public static boolean poll(Context context) {
-        // check if the operation can be ran. return true if can.
         return true;
     }
 
