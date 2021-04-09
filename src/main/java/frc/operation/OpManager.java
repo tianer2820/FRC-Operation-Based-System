@@ -10,21 +10,20 @@ import java.util.ArrayList;
 public class OpManager {
     ArrayList<Operation> operation_list = new ArrayList<Operation>();
     OpMode operation_mode = OpMode.NONE;
+    ReportHandler report_handler;
 
     /**
      * Initiallize the manager
      */
-    public void init() {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public void init(ReportHandler handler) {
+        this.report_handler = handler;
     }
 
     public void setMode(OpMode mode){
         operation_mode = mode;
     }
 
-    /**
-     * Update the manager, running all operations. You should call this periodically
-     */
+    /** call this periodically to run all operations. */
     public void update() {
         throw new UnsupportedOperationException("Not implemented yet");
     }
@@ -38,15 +37,13 @@ public class OpManager {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
-    /**
-     * interrupt all operations
-     */
+    /** interrupt all operations */
     public void interruptAll(){
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
     void reportMessage(Operation operation, ReportType type, String message){
-        throw new UnsupportedOperationException("Not implemented yet");
+        report_handler.reportMessage(operation, type, message);
     }
 
     /**Used internally to remove ended operations */
