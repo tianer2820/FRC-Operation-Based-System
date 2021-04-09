@@ -6,5 +6,5 @@ package frc.OperationManager;
 
 
 public enum OperationState {
-    WAITING, CANCELED, RUNNING, FINISHED
+    WAITING, CANCELED, RUNNING, FINISHED, INTERRUPTED
 }

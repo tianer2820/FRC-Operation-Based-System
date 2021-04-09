@@ -44,4 +44,17 @@ public class OpManager {
     public void interruptAll(){
         throw new UnsupportedOperationException("Not implemented yet");
     }
+
+    void reportMessage(Operation operation, ReportType type, String message){
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    /**Used internally to remove ended operations */
+    void removeOperation(Operation operation){
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    public boolean allOperationEnded(){
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
 }

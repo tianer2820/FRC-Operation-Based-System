@@ -12,15 +12,15 @@ public abstract class Operation {
     public String priority_ignores[] = {};
 
     OperationState state = OperationState.WAITING;
+    OpManager manager;
 
     /**
      * Report a message, warning, or error to be shown to the user.
-     * 
      * @param type    The type of the report
      * @param message The message to be sent
      */
     protected void report(ReportType type, String message) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        manager.reportMessage(this, type, message);
     }
 
     /**
@@ -30,8 +30,15 @@ public abstract class Operation {
      * 
      * @param operation The operation instance to start.
      */
-    protected void startOperation(Operation operation) {
-        throw new UnsupportedOperationException("Not implemented yet");
+    protected OperationState runOperation(Operation operation) {
+        OpManager temp_manager = new OpManager();
+        temp_manager.init();
+        temp_manager.setMode(this.manager.operation_mode);
+        temp_manager.startOperation(operation);
+        while (!temp_manager.allOperationEnded()) {
+            temp_manager.update();
+        }
+        return operation.getState();
     }
 
     /**
@@ -45,8 +52,12 @@ public abstract class Operation {
      * Force stop this operation and change its state to INTERRUPTED
      */
     public void interrupt() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        this.onInterrupt();
+        this.state = OperationState.INTERRUPTED;
+        manager.removeOperation(this);
     }
+
+    void onInterrupt(){}
 
     /**
      * Check if this operation can be done in the context.
@@ -62,7 +73,7 @@ public abstract class Operation {
      * You should override this method.
      * @return the new state of this operation
      */
-    public OperationState invoke(Context context) {
+    OperationState init(Context context) {
         return this.execute(context);
     }
 
@@ -71,5 +82,5 @@ public abstract class Operation {
      * You must override this method.
      * @return the new state of this operation
      */
-    abstract public OperationState execute(Context context);
+    abstract OperationState execute(Context context);
 }
