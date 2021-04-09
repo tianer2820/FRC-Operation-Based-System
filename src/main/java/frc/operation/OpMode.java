@@ -4,7 +4,7 @@
 
 package frc.operation;
 
-/** Add your docs here. */
+/** Enum for operation mode */
 public enum OpMode{
     NONE, DISABLED, AUTONOMOUS, TELEOP, TEST
 }

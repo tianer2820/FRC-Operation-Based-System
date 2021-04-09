@@ -45,7 +45,7 @@ public abstract class Operation implements ReportHandler {
         // make new opmanager and start operation
         OpManager temp_manager = new OpManager();
         temp_manager.init(this);
-        temp_manager.setMode(this.manager.operation_mode);
+        temp_manager.setMode(this.manager.opMode);
         temp_manager.startOperation(operation);
         while (!temp_manager.allOperationEnded()) {
             temp_manager.update();
@@ -58,6 +58,23 @@ public abstract class Operation implements ReportHandler {
         return this.state;
     }
 
+    public boolean isEnded() {
+        switch (this.state) {
+            case WAITING:
+                return false;
+            case RUNNING:
+                return false;
+            case CANCELED:
+                return true;
+            case FINISHED:
+                return true;
+            case INTERRUPTED:
+                return true;
+            default:
+                return true;
+        }
+    }
+
     /** Force stop this operation and change its state to INTERRUPTED */
     public void interrupt() {
         this.onInterrupt();
@@ -65,7 +82,7 @@ public abstract class Operation implements ReportHandler {
         manager.removeOperation(this);
     }
 
-    void onInterrupt() {
+    protected void onInterrupt() {
     }
 
     /**

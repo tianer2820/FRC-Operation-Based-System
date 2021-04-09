@@ -6,6 +6,14 @@ package frc.operation;
 
 /** Add your docs here. */
 public class Context { // a class that provide running context
-    public OpManager op_manager;
+    public OpManager opManager;
     public OpMode mode;
+
+    public OpManager getOpManager(){
+        return opManager;
+    }
+
+    public OpMode getOpMode(){
+        return mode;
+    }
 }
