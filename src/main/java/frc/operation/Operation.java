@@ -8,17 +8,14 @@ package frc.operation;
  * The base class of all operations
  */
 public abstract class Operation implements ReportHandler {
-    public int priority = 0;
-    public String priority_ignores[] = {};
+    public int opPriority = 0;
 
-    OpState state = OpState.WAITING;
-    OpManager manager;
+    OpState opState = OpState.WAITING;
+    OpManager opManager;
 
-    /**
-     * Report messages produced by an operation. Use "report()" instead if possible
-     */
+    /** Report messages produced by an operation. Use "report()" instead if possible */
     public void reportMessage(Operation operation, ReportType type, String message) {
-        this.manager.reportMessage(operation, type, message);
+        this.opManager.reportMessage(operation, type, message);
     }
 
     /**
@@ -28,12 +25,12 @@ public abstract class Operation implements ReportHandler {
      * @param message The message to be sent
      */
     protected void report(ReportType type, String message) {
-        manager.reportMessage(this, type, message);
+        opManager.reportMessage(this, type, message);
     }
 
     /**
      * Start a new operation in the current operation. This return after the new
-     * operation is done, so the operation should finish instantly. To start a
+     * operation is done, so the operation must finish instantly. To start a
      * long-running operation, use "OpManager.startOperation()" instead.
      * 
      * @param operation The operation instance to start.
@@ -41,25 +38,25 @@ public abstract class Operation implements ReportHandler {
      */
     protected OpState runOperation(Operation operation) {
         // change priority
-        operation.priority = Math.max(operation.priority, this.priority);
+        operation.opPriority = Math.max(operation.opPriority, this.opPriority);
         // make new opmanager and start operation
         OpManager temp_manager = new OpManager();
         temp_manager.init(this);
-        temp_manager.setMode(this.manager.opMode);
+        temp_manager.setMode(this.opManager.opMode);
         temp_manager.startOperation(operation);
         while (!temp_manager.allOperationEnded()) {
             temp_manager.update();
         }
-        return operation.getState();
+        return operation.getOpState();
     }
 
     /** Return the state of this operation */
-    public OpState getState() {
-        return this.state;
+    public OpState getOpState() {
+        return this.opState;
     }
 
     public boolean isEnded() {
-        switch (this.state) {
+        switch (this.opState) {
             case WAITING:
                 return false;
             case RUNNING:
@@ -77,12 +74,12 @@ public abstract class Operation implements ReportHandler {
 
     /** Force stop this operation and change its state to INTERRUPTED */
     public void interrupt() {
-        this.onInterrupt();
-        this.state = OpState.INTERRUPTED;
-        manager.removeOperation(this);
+        this.onInterrupt(this.opManager.getContext());
+        this.opState = OpState.INTERRUPTED;
     }
 
-    protected void onInterrupt() {
+    /**Override this to run some code when interrupted */
+    protected void onInterrupt(Context context) {
     }
 
     /**

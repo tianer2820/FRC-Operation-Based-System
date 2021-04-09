@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /** The operation Manager */
-public class OpManager {
+public class OpManager implements ReportHandler{
     ArrayList<Operation> opList = new ArrayList<Operation>();
+    ArrayList<Operation> opbufList = new ArrayList<Operation>(); // to avoid modify during iteration
     OpMode opMode = OpMode.NONE;
     ReportHandler reportHandler;
 
@@ -29,16 +30,19 @@ public class OpManager {
 
     /** call this periodically to run all operations. */
     public void update() {
+        // append the buffer list
+        opList.addAll(opbufList);
+        opbufList.clear();
+
         cleanupOperationList();
+
         Iterator<Operation> iter = opList.iterator();
-        Context context = new Context();
-        context.mode = this.opMode;
-        context.opManager = this;
+        Context context = this.getContext();
 
         while (iter.hasNext()) {
             Operation op = iter.next();
             OpState state = op.execute(context);
-            op.state = state;
+            op.opState = state;
         }
     }
 
@@ -48,20 +52,16 @@ public class OpManager {
      * @param operation instance of the operation to start
      */
     public void startOperation(Operation operation) {
-        // set manager
-        operation.manager = this;
-        // create new context obj
-        Context context = new Context();
-        context.mode = this.opMode;
-        context.opManager = this;
+        operation.opManager = this;
+        Context context = this.getContext();
         // call invoke
         OpState state = operation.invoke(context);
-        operation.state = state;
+        operation.opState = state;
         // add to list if not ended
         if (operation.isEnded()) {
             return;
         } else {
-            opList.add(operation);
+            opbufList.add(operation);
         }
     }
 
@@ -75,13 +75,17 @@ public class OpManager {
         }
     }
 
-    void reportMessage(Operation operation, ReportType type, String message) {
+    @Override
+    public void reportMessage(Operation operation, ReportType type, String message) {
         reportHandler.reportMessage(operation, type, message);
     }
 
-    /** Used internally to remove ended operations */
-    void removeOperation(Operation operation) {
-        opList.remove(operation);
+    /**generate a context object */
+    Context getContext(){
+        Context context = new Context();
+        context.opMode = this.opMode;
+        context.opManager = this;
+        return context;
     }
 
     /** check if all operation has ended */
@@ -102,12 +106,11 @@ public class OpManager {
         while (iter.hasNext()) {
             Operation op = iter.next();
             if (op.isEnded()) {
-                removeOperation(op);
+                opList.remove(op);
             } else {
                 hasRunning = true;
             }
         }
         return hasRunning;
     }
-
 }

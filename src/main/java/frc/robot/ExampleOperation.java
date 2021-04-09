@@ -9,7 +9,6 @@ import frc.operation.*;
 public class ExampleOperation extends Operation {
 
     public int priority = 0;
-    public String priority_ignores[] = { "class_to_ignore" }; // currently unused
 
     // properties for the operation. These can be set when the operation is called.
     public int prop1;
