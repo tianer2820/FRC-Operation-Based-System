@@ -4,10 +4,10 @@
 
 package frc.operation;
 
-/** Add your docs here. */
+/** Object used to represent the running context of operation */
 public class Context { // a class that provide running context
-    public OpManager opManager;
-    public OpMode mode;
+    OpManager opManager;
+    OpMode mode;
 
     public OpManager getOpManager(){
         return opManager;
