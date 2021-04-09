@@ -4,6 +4,7 @@
 
 package frc.operation;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -67,8 +68,7 @@ public class OpManager implements ReportHandler{
 
     /** interrupt all operations */
     public void interruptAll() {
-        ArrayList<Operation> oplist = (ArrayList<Operation>) opList.clone();
-        Iterator<Operation> iter = oplist.iterator();
+        Iterator<Operation> iter = opList.iterator();
         while (iter.hasNext()) {
             Operation op = iter.next();
             op.interrupt();
@@ -101,7 +101,8 @@ public class OpManager implements ReportHandler{
     }
 
     private boolean cleanupOperationList() {
-        Iterator<Operation> iter = opList.iterator();
+        ArrayList<Operation> tempList = (ArrayList<Operation>)opList.clone();
+        Iterator<Operation> iter = tempList.iterator();
         boolean hasRunning = false;
         while (iter.hasNext()) {
             Operation op = iter.next();
