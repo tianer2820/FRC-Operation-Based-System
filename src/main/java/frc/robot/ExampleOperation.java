@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import frc.OperationManager.*;
+import frc.operation.*;
 
 public class ExampleOperation extends Operation {
 
@@ -26,7 +26,7 @@ public class ExampleOperation extends Operation {
         return true;
     }
 
-    public OperationState invoke(Context context) {
+    public OpState invoke(Context context) {
         // invoke is called to initialize the operation.
 
         this.report(ReportType.MESSAGE, "some text to send"); // report a warning, error, or message
@@ -43,11 +43,11 @@ public class ExampleOperation extends Operation {
         return this.execute(context);
     }
 
-    public OperationState execute(Context context) {
+    public OpState execute(Context context) {
         // do the operation
 
         // return FINISHED to end the operation
-        return OperationState.FINISHED;
+        return OpState.FINISHED;
 
         // return RUNNING to continue the operation (execute will be called again)
         // return OperationState.RUNNING;

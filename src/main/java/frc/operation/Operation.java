@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.OperationManager;
+package frc.operation;
 
 /**
  * The base class of all operations
@@ -11,7 +11,7 @@ public abstract class Operation {
     public int priority = 0;
     public String priority_ignores[] = {};
 
-    OperationState state = OperationState.WAITING;
+    OpState state = OpState.WAITING;
     OpManager manager;
 
     /**
@@ -30,7 +30,7 @@ public abstract class Operation {
      * 
      * @param operation The operation instance to start.
      */
-    protected OperationState runOperation(Operation operation) {
+    protected OpState runOperation(Operation operation) {
         OpManager temp_manager = new OpManager();
         temp_manager.init();
         temp_manager.setMode(this.manager.operation_mode);
@@ -44,7 +44,7 @@ public abstract class Operation {
     /**
      * Return the state of this operation
      */
-    public OperationState getState() {
+    public OpState getState() {
         return this.state;
     }
 
@@ -53,7 +53,7 @@ public abstract class Operation {
      */
     public void interrupt() {
         this.onInterrupt();
-        this.state = OperationState.INTERRUPTED;
+        this.state = OpState.INTERRUPTED;
         manager.removeOperation(this);
     }
 
@@ -73,7 +73,7 @@ public abstract class Operation {
      * You should override this method.
      * @return the new state of this operation
      */
-    OperationState init(Context context) {
+    OpState init(Context context) {
         return this.execute(context);
     }
 
@@ -82,5 +82,5 @@ public abstract class Operation {
      * You must override this method.
      * @return the new state of this operation
      */
-    abstract OperationState execute(Context context);
+    abstract OpState execute(Context context);
 }

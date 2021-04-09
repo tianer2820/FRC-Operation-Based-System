@@ -2,14 +2,14 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.OperationManager;
+package frc.operation;
 
 import java.util.ArrayList;
 
 /**The operation Manager */
 public class OpManager {
     ArrayList<Operation> operation_list = new ArrayList<Operation>();
-    OperationMode operation_mode = OperationMode.NONE;
+    OpMode operation_mode = OpMode.NONE;
 
     /**
      * Initiallize the manager
@@ -18,7 +18,7 @@ public class OpManager {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
-    public void setMode(OperationMode mode){
+    public void setMode(OpMode mode){
         operation_mode = mode;
     }
 
