@@ -56,10 +56,12 @@ opDaemon = false;
 
 ### Override methods
 There are four methods you need to know:
-- `protected OpState invoke(Context context)`
-- `protected OpState execute(Context context)`
-- `protected void onInterrupt(Context context)`
-- `public static boolean poll(Context context)`
+```java
+protected OpState invoke(Context context);
+protected OpState execute(Context context);
+protected void onInterrupt(Context context);
+public static boolean poll(Context context);
+```
 
 Their names are pretty self explanitory, and you can override them to impliment you own logic. There are also an `TemplateOperation.java` that you can use to save time.
 
@@ -76,7 +78,7 @@ The `poll` is added as a "helper". It should return the availablity of this oper
 Finally, the `Context` object. This object gives some useful information on the current situation, such as time, delta time since last run, teleop mode or auto mode, etc. More will be added in the future.
 
 ### Priority and Ownership
-The priority and ownership system is introduced to prevent conflicts between operations. When two different operations tries to control one subsystem at the same time, strange things can happen (like motor shaking like crazy).
+The priority and ownership system is introduced to prevent conflicts between operations. When two different operations tries to control one subsystem at the same time, strange things can happen (motor shaking like crazy).
 
 This system will not prevent you from doing anything, but provides a good rule to follow which can make your code safer.
 
@@ -90,3 +92,10 @@ To gain ownership of a subsystem, use `<some_subsystem>.capture(this);`. It will
 To start a new operation, you need to make a new instance of the operation and send it to the OpManager by `startOperation()`. The OpManager is accessable through the Context object if you are inside a operation. You can also call `this.runOperation()` inside a operation. This will block until the new operation is done and return the end state of the operation, so you should only use instant-finishing operation with it.
 
 To interrupt an operation, call `operation.interrupt()`. It will finish up and be removed from the OpManager list.
+
+# Starting the Robot
+Usually you need to "manually" start several operations in the `Robot.java` when the robot boots. After this, you can let these operations start new operations. To terminate all operations (like when the robot is switched from Auto to Teleop), you can call `OpManager.interruptAll()` or `OpManager.interruptNonDaemon()`, depending on what you want.
+
+# TODOs
+- add helper classes like sequential/parallel operations
+- add helper classes on reading handle input and using motor output (a little out of scope, maybe in another project)
