@@ -17,7 +17,7 @@ public class TimerOperation extends Operation {
 
     public TimerOperation(){
         this.opPriority = 1;
-        this.opDaemon = true;
+        this.opDaemon = false;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class TimerOperation extends Operation {
         } else{
             myTimer.reset();
             myTimer.start();
-            this.report(ReportType.WARNING, String.format("3 Seconds has past! Current: %2f", context.getTimeTotal()));
+            this.report(ReportType.WARNING, String.format("3 Seconds has past! Current: %.8f, delta: %.8f", context.getTimeTotal(), context.getTimeDelta()));
             messageNum += 1;
             return OpState.RUNNING;
         }

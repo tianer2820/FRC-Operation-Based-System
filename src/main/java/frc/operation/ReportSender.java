@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.shuffleboard.LayoutType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -103,7 +102,6 @@ public class ReportSender implements ReportHandler {
             }
         }
 
-        ShuffleboardTab tab = Shuffleboard.getTab("Operation Log");
         pushShuffleBoard(messageEntries, messageArrayList);
         pushShuffleBoard(warningEntries, warningArrayList);
         pushShuffleBoard(errorEntries, errorArrayList);
