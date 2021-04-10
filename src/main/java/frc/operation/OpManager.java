@@ -8,6 +8,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import edu.wpi.first.wpilibj.Timer;
+
 /** The operation Manager */
 public class OpManager implements ReportHandler{
     ArrayList<Operation> opList = new ArrayList<Operation>();
@@ -15,9 +17,17 @@ public class OpManager implements ReportHandler{
     OpMode opMode = OpMode.NONE;
     ReportHandler reportHandler;
 
+    Timer timer = new Timer();
+    double timeLastUpdate = 0;
+    double timeDelta = 0;
+
     /** Initiallize the manager */
     public void init(ReportHandler handler) {
         this.reportHandler = handler;
+        timer.reset();
+        timer.start();
+        timeLastUpdate = timer.get();
+        timeDelta = 0;
     }
 
     /** Initiallize the manager with the default ReportHandler */
@@ -31,6 +41,11 @@ public class OpManager implements ReportHandler{
 
     /** call this periodically to run all operations. */
     public void update() {
+        // update delta time
+        double timeCurrent = timer.get();
+        timeDelta = timeCurrent - timeLastUpdate;
+        timeLastUpdate = timeCurrent;
+
         // append the buffer list
         opList.addAll(opbufList);
         opbufList.clear();
@@ -85,6 +100,8 @@ public class OpManager implements ReportHandler{
         Context context = new Context();
         context.opMode = this.opMode;
         context.opManager = this;
+        context.timeDelta = this.timeDelta;
+        context.timeTotal = this.timeLastUpdate;
         return context;
     }
 

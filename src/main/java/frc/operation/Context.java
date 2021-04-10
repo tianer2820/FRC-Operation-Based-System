@@ -8,6 +8,8 @@ package frc.operation;
 public class Context { // a class that provide running context
     OpManager opManager;
     OpMode opMode;
+    double timeTotal;
+    double timeDelta;
 
     public OpManager getOpManager(){
         return opManager;
@@ -15,5 +17,13 @@ public class Context { // a class that provide running context
 
     public OpMode getOpMode(){
         return opMode;
+    }
+
+    public double getTimeDelta(){
+        return timeDelta;
+    }
+
+    public double getTimeTotal(){
+        return timeTotal;
     }
 }
