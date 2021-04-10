@@ -6,17 +6,20 @@ package frc.robot.operations;
 
 import frc.operation.*;
 
-public class ExampleOperation extends Operation {
+public class TemplateOperation extends Operation {
 
     // custom properties
     public int property1 = 10;
     public double property2 = 3.14;
 
-    public ExampleOperation() {
+    public TemplateOperation(int prop1) {
         super();
         // set the priority of this operation
         opPriority = 1;
         opDaemon = false;
+
+        // set properties
+        property1 = prop1;
     }
 
     @Override
