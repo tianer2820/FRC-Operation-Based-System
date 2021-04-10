@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+package frc.robot.operations;
 
 import frc.operation.*;
 
@@ -13,6 +13,7 @@ public class ExampleOperation extends Operation {
     public double property2 = 3.14;
 
     public ExampleOperation() {
+        super();
         // set the priority of this operation
         opPriority = 1;
         opDaemon = false;
