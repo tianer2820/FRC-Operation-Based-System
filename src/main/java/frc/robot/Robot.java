@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.operation.OpManager;
+import frc.operation.OpMode;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -14,20 +16,26 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+    OpManager manager = new OpManager();
+
     /**
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
      */
     @Override
     public void robotInit() {
+        manager.init();
     }
 
     @Override
     public void robotPeriodic() {
+        manager.update();
     }
 
     @Override
     public void autonomousInit() {
+        manager.setMode(OpMode.AUTONOMOUS);
+        manager.startOperation(new TimerOperation());
     }
 
     @Override
@@ -36,6 +44,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        manager.setMode(OpMode.TELEOP);
+
     }
 
     @Override
@@ -44,6 +54,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledInit() {
+        manager.setMode(OpMode.DISABLED);
+
     }
 
     @Override
@@ -52,6 +64,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void testInit() {
+        manager.setMode(OpMode.TEST);
+
     }
 
     @Override

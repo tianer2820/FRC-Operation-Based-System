@@ -8,47 +8,36 @@ import frc.operation.*;
 
 public class ExampleOperation extends Operation {
 
-    public int priority = 0;
+    // custom properties
+    public int property1 = 10;
+    public double property2 = 3.14;
 
-    // properties for the operation. These can be set when the operation is called.
-    public int prop1;
-    public double prop2;
-    public String prop3;
-
-    public static boolean poll(Context context) {
-        return true;
+    public ExampleOperation() {
+        // set the priority of this operation
+        opPriority = 1;
+        opDaemon = false;
     }
 
     @Override
     protected OpState invoke(Context context) {
-        // invoke is called to initialize the operation.
-        this.report(ReportType.MESSAGE, "The operation is starting!"); // report a warning, error, or message
-
-        // start new operations
-        ExampleOperation new_op = new ExampleOperation();
-        new_op.prop1 = 10; // customize properties
-        this.runOperation(new_op); // make a child operation. the priority will be max(this, other).
-        // will return when the operation is done.
-
-        context.getOpManager().startOperation(new ExampleOperation());
-        // start a root operation. This will be execute once, but
-        // will not wait to finish
-
-        return this.execute(context);
+        // do some initiallization here
+        return super.invoke(context);
     }
 
     @Override
     protected OpState execute(Context context) {
-        // do the operation
-
-        // return FINISHED to end the operation
+        // do whatever this operation is for
         return OpState.FINISHED;
+    }
 
-        // return RUNNING to continue the operation (execute will be called again)
-        // return OperationState.RUNNING;
+    @Override
+    protected void onInterrupt(Context context) {
+        // cleanup when the operation is interrupted
+        super.onInterrupt(context);
+    }
 
-        // return CANCELED to cancel the operation (due to control conflict, wrong mode,
-        // etc.)
-        // return OperationState.CANCELED;
+    public static boolean poll(Context context) {
+        // a convinent method to let other code know if this operation is runnable
+        return true;
     }
 }
