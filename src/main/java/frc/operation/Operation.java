@@ -9,6 +9,7 @@ package frc.operation;
  */
 public abstract class Operation implements ReportHandler {
     public int opPriority = 0;
+    public boolean opDaemon = false;
 
     OpState opState = OpState.WAITING;
     OpManager opManager;

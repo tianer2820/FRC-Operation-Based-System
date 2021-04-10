@@ -31,11 +31,14 @@ public class OpManager implements ReportHandler{
 
     /** Initiallize the manager with the default ReportHandler */
     public void init() {
-        this.reportHandler = new ReportSender();
+        this.init(new ReportSender(3));
     }
 
     public void setMode(OpMode mode) {
         this.opMode = mode;
+        if (mode == OpMode.DISABLED) {
+            this.interruptNonDaemon();
+        }
     }
 
     /** call this periodically to run all operations. */
@@ -88,6 +91,16 @@ public class OpManager implements ReportHandler{
         while (iter.hasNext()) {
             Operation op = iter.next();
             op.interrupt();
+        }
+    }
+
+    public void interruptNonDaemon(){
+        Iterator<Operation> iter = opList.iterator();
+        while (iter.hasNext()) {
+            Operation op = iter.next();
+            if (!op.opDaemon) {
+                op.interrupt();
+            }
         }
     }
 
