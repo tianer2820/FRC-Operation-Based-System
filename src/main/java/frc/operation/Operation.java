@@ -28,6 +28,9 @@ public abstract class Operation implements ReportHandler {
         opManager.reportMessage(this, type, message);
     }
 
+    @Override
+    public void updateReport(Context context) {/**do nothing */}
+
     /**
      * Start a new operation in the current operation. This return after the new
      * operation is done, so the operation must finish instantly. To start a

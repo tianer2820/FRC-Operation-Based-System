@@ -4,7 +4,6 @@
 
 package frc.operation;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -60,6 +59,8 @@ public class OpManager implements ReportHandler{
             OpState state = op.execute(context);
             op.opState = state;
         }
+
+        this.reportHandler.updateReport(context);
     }
 
     /**
@@ -131,4 +132,7 @@ public class OpManager implements ReportHandler{
         }
         return hasRunning;
     }
+
+    @Override
+    public void updateReport(Context context) {/**do nothing */}
 }

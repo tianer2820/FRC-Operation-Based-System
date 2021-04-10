@@ -7,4 +7,5 @@ package frc.operation;
 /** Add your docs here. */
 public interface ReportHandler {
     public void reportMessage(Operation operation, ReportType type, String message);
+    public void updateReport(Context context);
 }
