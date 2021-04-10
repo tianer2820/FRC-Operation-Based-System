@@ -26,14 +26,15 @@ public class ReportSender implements ReportHandler {
     ArrayList<NetworkTableEntry> warningEntries = new ArrayList<NetworkTableEntry>();
     ArrayList<NetworkTableEntry> errorEntries = new ArrayList<NetworkTableEntry>();
 
-    double timeCurrent = 0;
+    double timeCurrent = -1;
+    double timeLastUpdate = -1;
 
     public ReportSender(int maxCount){
         ShuffleboardTab tab = Shuffleboard.getTab("Operation Log");
         initLayout(tab, "Message", maxCount, messageEntries);
         initLayout(tab, "Warning", maxCount, warningEntries);
         initLayout(tab, "Error", maxCount, errorEntries);
-
+        SmartDashboard.putString("Operation Log", "");
     }
 
     void initLayout(ShuffleboardTab tab, String title, int maxCount, ArrayList<NetworkTableEntry> entries){
@@ -61,6 +62,14 @@ public class ReportSender implements ReportHandler {
     @Override
     public void updateReport(Context context) {
         timeCurrent = context.getTimeTotal();
+        if(timeLastUpdate == -1){
+            timeLastUpdate = timeCurrent;
+        }
+        double timeDelta = timeCurrent - timeLastUpdate;
+        if (timeDelta < 0.1) {
+            return;
+        }
+        timeLastUpdate = timeCurrent;
 
         ArrayList<String> messageArrayList = new ArrayList<String>();
         ArrayList<String> warningArrayList = new ArrayList<String>();

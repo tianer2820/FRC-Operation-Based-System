@@ -17,7 +17,7 @@ public class TimerOperation extends Operation {
 
     public TimerOperation(){
         this.opPriority = 1;
-        this.opDaemon = false;
+        this.opDaemon = true;
     }
 
     @Override
