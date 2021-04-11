@@ -22,6 +22,12 @@ public class SubSystem {
      */
     public boolean capture(Operation operation, boolean force) {
         Operation curOperation = this.getCurrentOwner();
+        
+        if(curOperation == null){ // no current owner
+            ownerList.add(operation); // add
+            return true;
+        }
+
         if (operation.opPriority >= curOperation.opPriority || force) {
             // priority check pass
             if (ownerList.contains(operation)) { // remove duplicate
