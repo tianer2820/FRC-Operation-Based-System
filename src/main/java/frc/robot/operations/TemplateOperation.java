@@ -18,7 +18,6 @@ public class TemplateOperation extends Operation {
         opPriority = 1;
         opDaemon = false;
 
-        // set properties
         property1 = prop1;
     }
 

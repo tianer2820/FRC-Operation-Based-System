@@ -8,16 +8,17 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.operation.OpManager;
 import frc.operation.OpMode;
+import frc.robot.subsystems.Chassis;
 
 
 public class Robot extends TimedRobot {
     OpManager manager = new OpManager();
 
     // Subsystems
-    // public static Chassis chassis = new Chassis(0, 1);
+    public static Chassis chassis = new Chassis(0, 1);
 
     // Joysticks
-    // public static Joystick stick = new Joystick(1);
+    public static Joystick stick = new Joystick(1);
 
     @Override
     public void robotInit() {
@@ -41,7 +42,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         manager.setMode(OpMode.TELEOP);
-
+        manager.startOperation(new TankDrive());
     }
 
     @Override
