@@ -29,6 +29,10 @@ public class TankDrive extends Operation {
         // check operation mode
         if(context.getOpMode() != OpMode.TELEOP){
             // not in teleop, stop
+            if(Robot.chassis.isCurrentOwner(this)){
+                // this is the current owner, set speed to zero
+                Robot.chassis.drive(0, 0);
+            }
             return OpState.FINISHED;
         }
 
